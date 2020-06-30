@@ -1,0 +1,25 @@
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yaml
+driver:
+  name: docker
+lint:
+  set -e
+  yamllint .
+  ansible-lint
+platforms:
+  - name: c7
+    image: centos:7
+  - name: d10
+    image: debian:10
+  - name: u2010
+    image: ubuntu:20.10
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

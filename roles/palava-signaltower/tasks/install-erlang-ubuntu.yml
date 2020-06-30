@@ -1,0 +1,15 @@
+---
+
+- name: Download erlang-solutions
+  get_url:
+    url: https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb
+    dest: /tmp/erlang-solutions_2.0_all.deb
+    mode: '0440'
+
+- name: Install erlang-solutions Repository
+  shell: dpkg -i /tmp/erlang-solutions_2.0_all.deb
+
+- name: Cleanup
+  file:
+    path: /tmp/erlang-solutions_2.0_all.deb
+    state: absent

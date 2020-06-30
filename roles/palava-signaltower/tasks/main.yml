@@ -1,0 +1,31 @@
+---
+
+- name: Install Erlang
+  include_tasks: "install-erlang-{{ ansible_os_family | lower}}"
+
+- name: Install elixir dependencies
+  package:
+    name: [ 'git', 'esl-erlang', 'elixir' ]
+    state: present
+
+- name: Create signaltower directory
+  file:
+    path: "{{ palava_signaltower_install_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+
+- name: Checkout Signltower
+  git: 
+    repo: 'https://github.com/palavatv/signaltower.git' 
+    dest: /srv/signaltower
+
+- name: Install signaltower dependencies
+  shell: cd /srv/signaltower && yes | mix deps.get
+
+- name: Build Signaltower
+  shell: cd /srv/signaltower && yes | mix deps.compile
+
+- name: Start Signaltower
+  shell: /srv/signaltower/start_daemon.sh

@@ -1,0 +1,7 @@
+---
+
+- hosts: all
+  remote_user: plv
+  become: yes
+  roles:
+    - signaltower_install
