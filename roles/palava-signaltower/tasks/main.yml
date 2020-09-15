@@ -22,10 +22,10 @@
     dest: /srv/signaltower
 
 - name: Install signaltower dependencies
-  shell: cd /srv/signaltower && yes | mix deps.get
+  shell: "cd {{ palava_signaltower_install_dir }} && yes | mix deps.get"
 
 - name: Build Signaltower
-  shell: cd /srv/signaltower && yes | mix deps.compile
+  shell: "cd {{ palava_signaltower_install_dir }} && yes | mix deps.compile"
 
 - name: Start Signaltower
-  shell: /srv/signaltower/start_daemon.sh
+  shell: "{{ palava_signaltower_install_dir }}/start_daemon.sh"
