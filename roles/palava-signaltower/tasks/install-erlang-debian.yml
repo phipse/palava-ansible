@@ -1,5 +1,10 @@
 ---
 
+- name: Install elixir dependencies
+  package:
+    name: gnupg
+    state: present
+
 - name: Download erlang-solutions
   get_url:
     url: https://packages.erlang-solutions.com/erlang-solutions_2.0_all.deb
@@ -13,3 +18,7 @@
   file:
     path: /tmp/erlang-solutions_2.0_all.deb
     state: absent
+
+- name: Update APT Cache
+  apt:
+    update_cache: yes

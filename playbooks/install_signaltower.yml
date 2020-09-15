@@ -4,4 +4,4 @@
   remote_user: root
   become: yes
   roles:
-    - signaltower_install
+    - palava-signaltower

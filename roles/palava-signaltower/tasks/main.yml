@@ -1,7 +1,7 @@
 ---
 
 - name: Install Erlang
-  include_tasks: "install-erlang-{{ ansible_os_family | lower}}"
+  include_tasks: "install-erlang-{{ ansible_os_family | lower }}.yml"
 
 - name: Install elixir dependencies
   package:
