@@ -16,6 +16,14 @@
     group: root
     mode: 0775
 
+- name: Create signaltower log directory
+  file:
+    path: "{{ palava_signaltower_log_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+
 - name: Checkout Signltower
   git: 
     repo: 'https://github.com/palavatv/signaltower.git' 
@@ -27,5 +35,13 @@
 - name: Build Signaltower
   shell: "cd {{ palava_signaltower_install_dir }} && yes | mix deps.compile"
 
+- name: Install Signaltower SystemD unit
+  template:
+    src: signaltower.service.j2
+    dest: /etc/systemd/system/signaltower.service
+
 - name: Start Signaltower
-  shell: "{{ palava_signaltower_install_dir }}/start_daemon.sh"
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: signaltower.service

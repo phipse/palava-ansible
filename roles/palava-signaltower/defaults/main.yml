@@ -1,3 +1,4 @@
 ---
 
 palava_signaltower_install_dir: /srv/signaltower
+palava_signaltower_log_dir: /var/log/signaltower
