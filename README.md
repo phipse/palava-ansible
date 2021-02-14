@@ -4,10 +4,17 @@
 - ansible (prefer newer ansible versions which are python 3 compatible)
 
 ### Prometheus
-- jmespath (installing host)
+- jmespath (deployer host)
 - unzip (target host)
 
+### Grafana
+- jmespath (deployer host)
+
 ## Deployment Instructions
+
+### Grafana
+- `ansible-galaxy install cloudalchemy.grafana`
+- `ansible-playbook -i environments/production/inventory.yml playbooks/install_grafana.yml`
 
 ### Prometheus
 - `ansible-galaxy install cloudalchemy.prometheus`
