@@ -1,0 +1,7 @@
+
+- hosts: all
+  strategy: debug
+  remote_user: root
+  become: yes
+  roles:
+    - cloudalchemy.prometheus
