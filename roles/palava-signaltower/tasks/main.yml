@@ -16,16 +16,38 @@
     group: root
     mode: 0775
 
+- name: Create signaltower log directory
+  file:
+    path: "{{ palava_signaltower_log_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+
 - name: Checkout Signltower
   git: 
     repo: 'https://github.com/palavatv/signaltower.git' 
     dest: /srv/signaltower
 
+- name: Prepare Release
+  shell: mix local.hex --force
+
 - name: Install signaltower dependencies
   shell: "cd {{ palava_signaltower_install_dir }} && yes | mix deps.get"
+
+- name: Set Release Type
+  shell: "cd {{ palava_signaltower_install_dir }} && yes | MIX_ENV=prod mix release {{ palava_environment }}"
 
 - name: Build Signaltower
   shell: "cd {{ palava_signaltower_install_dir }} && yes | mix deps.compile"
 
+- name: Install Signaltower SystemD unit
+  template:
+    src: signaltower.service.j2
+    dest: "/etc/systemd/system/signaltower-{{ palava_environment }}.service"
+
 - name: Start Signaltower
-  shell: "{{ palava_signaltower_install_dir }}/start_daemon.sh"
+  systemd:
+    daemon_reload: "{{ palava_signaltower_autostart }}"
+    enabled: "{{ palava_signaltower_autostart }}"
+    name: "signaltower-{{ palava_environment }}.service"

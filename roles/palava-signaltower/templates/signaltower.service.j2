@@ -1,0 +1,20 @@
+[Unit]
+Description=Palava Signal Tower
+After=network.target
+
+[Service]
+Type=simple
+User=plv
+Group=plv
+WorkingDirectory={{ palava_signaltower_install_dir }}/
+ExecStart=$WorkingDirectory/_build/prod/rel/{{ palava_environment }}/bin/{{ palava_environment }} start
+ExecStart=$WorkingDirectory/_build/prod/rel/{{ palava_environment }}/bin/{{ palava_environment }} stop
+Restart=on-failure
+Type=forking
+RestartSec=5
+Environment=SIGNALTOWER_PORT=4250
+Environment=LOG_FILE={{ palava_signaltower_log_dir }}/signaltower.log
+SyslogIdentifier=signaltower
+
+[Install]
+WantedBy=multi-user.target
