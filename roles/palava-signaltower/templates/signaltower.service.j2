@@ -4,15 +4,15 @@ After=network.target
 
 [Service]
 Type=simple
-User=plv
-Group=plv
+User={{ palava_user }}
+Group={{ palava_group }}
 WorkingDirectory={{ palava_signaltower_install_dir }}/
-ExecStart=$WorkingDirectory/_build/prod/rel/{{ palava_environment }}/bin/{{ palava_environment }} start
-ExecStart=$WorkingDirectory/_build/prod/rel/{{ palava_environment }}/bin/{{ palava_environment }} stop
+ExecStart={{ palava_signaltower_install_dir }}/_build/prod/rel/{{ palava_environment }}/bin/{{ palava_environment }} daemon
+ExecStop={{ palava_signaltower_install_dir }}/_build/prod/rel/{{ palava_environment }}/bin/{{ palava_environment }} stop
 Restart=on-failure
 Type=forking
 RestartSec=5
-Environment=SIGNALTOWER_PORT=4250
+Environment=SIGNALTOWER_PORT={{ palava_signaltower_port }}
 Environment=LOG_FILE={{ palava_signaltower_log_dir }}/signaltower.log
 SyslogIdentifier=signaltower
 

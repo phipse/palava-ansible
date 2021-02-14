@@ -41,6 +41,23 @@
 - name: Build Signaltower
   shell: "cd {{ palava_signaltower_install_dir }} && yes | mix deps.compile"
 
+- name: Ensure palava_group exists
+  group:
+    name: "{{ palava_group }}"
+    state: present
+
+- name: Ensure palava_user exists
+  user:
+    name: "{{ palava_user }}"
+    group: "{{ palava_group }}"
+
+- name: Ensure signaltower ownership
+  file:
+    path: "{{ palava_signaltower_install_dir }}"
+    owner: "{{ palava_user }}"
+    group: "{{ palava_group }}"
+    recurse: true
+
 - name: Install Signaltower SystemD unit
   template:
     src: signaltower.service.j2
