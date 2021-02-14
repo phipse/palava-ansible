@@ -1,0 +1,8 @@
+---
+
+palava_web_install_dir: /var/www/palava-web
+palava_web_log_dir: /var/log/palava-web
+palava_web_repo: https://github.com/palavatv/palava-web.git
+palava_web_ref: 109536863ededfd5164a4d984f496f5c58a683fe
+
+palava_web_environment: production

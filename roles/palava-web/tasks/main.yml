@@ -1,0 +1,10 @@
+---
+
+- name: Install node.js
+  include: nodesource.yml
+
+- name: Install other required packages
+  apt:
+    name:
+      - nginx
+    state: present
