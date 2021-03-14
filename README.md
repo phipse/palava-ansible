@@ -23,3 +23,7 @@
 ### Signal tower
 - Copy `ansible.cfg.example` to `ansible.cfg`
 - `ansible-playbook -i environments/production/inventory.yml playbooks/install_signaltower.yml`
+
+### Palava Web
+- `ansible-galaxy install community.general` (node)
+- `ansible-playbook -i environments/production/inventory.yml playbooks/install_palava_web.yml`
