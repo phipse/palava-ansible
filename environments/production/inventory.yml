@@ -1,32 +1,5 @@
 ---
 
 all:
-  vars:
-    # Prometheus vars
-    prometheus_version: 2.22.0
-
-    prometheus_web_listen_address: '0.0.0.0:9090'
-
-    prometheus_scrape_jobs:
-    - job_name: 'signal-tower'
-      metrics_path: /metrics
-      params:
-        module: [http_2xx]
-      static_configs:
-        - targets:
-          - localhost:4233
-
-    # Grafana vars
-    grafana_security: 
-      admin_user: admin
-      admin_password: "admin"
-
-    grafana_datasources:
-      - name: prometheus
-        type: prometheus
-        access: proxy
-        url: 'http://{{ prometheus_web_listen_address }}'
-        basicAuth: false
-
   hosts:
     185.189.221.157: null
