@@ -1,6 +1,6 @@
 - name: Add nodesource key
   apt_key:
-    data: "{{ lookup('file', 'nodesource.gpg.key') }}"
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
     state: present
 
 - name: Copy nodesource apt sources
