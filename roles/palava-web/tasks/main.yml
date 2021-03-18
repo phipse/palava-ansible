@@ -1,0 +1,24 @@
+---
+
+- name: Install node.js
+  include: nodesource.yml
+
+- name: Install other required packages
+  apt:
+    name:
+      - nginx
+    state: present
+
+- name: Create palava-web directory
+  file:
+    path: "{{ palava_web_install_dir }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0775
+
+- name: Checkout palava-web source
+  git:
+    repo: "{{ palava_web_repo }}"
+    dest: "{{ palava_web_install_dir }}"
+    version: "{{ palava_web_version }}"

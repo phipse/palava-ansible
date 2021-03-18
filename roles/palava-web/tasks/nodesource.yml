@@ -1,0 +1,20 @@
+- name: Add nodesource key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+    state: present
+
+- name: Copy nodesource apt sources
+  copy:
+    src: nodesource.list
+    dest: /etc/apt/sources.list.d/nodesource.list
+
+- name: Install node
+  apt:
+    name: nodejs
+    update_cache: yes
+    state: present
+
+- name: Install global modules
+  community.general.npm:
+    name: yarn
+    global: yes
