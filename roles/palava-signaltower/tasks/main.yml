@@ -1,14 +1,11 @@
 ---
 
-- name: Install Erlang
-  include_tasks: "install-erlang-{{ ansible_os_family | lower }}.yml"
-
-- name: Install elixir dependencies
+- name: Install Elixir and Git
   package:
-    name: [ 'git', 'esl-erlang', 'elixir' ]
+    name: [ 'git', 'elixir' ]
     state: present
 
-- name: Create signaltower directory
+- name: Create Signaltower directory
   file:
     path: "{{ palava_signaltower_install_dir }}"
     state: directory
@@ -16,7 +13,7 @@
     group: root
     mode: 0775
 
-- name: Create signaltower log directory
+- name: Create Signaltower log directory
   file:
     path: "{{ palava_signaltower_log_dir }}"
     state: directory
@@ -24,22 +21,19 @@
     group: root
     mode: 0775
 
-- name: Checkout Signltower
+- name: Checkout Signaltower
   git: 
     repo: 'https://github.com/palavatv/signaltower.git' 
     dest: /srv/signaltower
 
-- name: Prepare Release
+- name: Prepare release
   shell: mix local.hex --force
 
-- name: Install signaltower dependencies
+- name: Install Signaltower dependencies
   shell: "cd {{ palava_signaltower_install_dir }} && yes | mix deps.get"
 
-- name: Set Release Type
+- name: Create release
   shell: "cd {{ palava_signaltower_install_dir }} && yes | MIX_ENV=prod mix release {{ palava_environment }}"
-
-- name: Build Signaltower
-  shell: "cd {{ palava_signaltower_install_dir }} && yes | mix deps.compile"
 
 - name: Ensure palava_group exists
   group:
@@ -51,7 +45,7 @@
     name: "{{ palava_user }}"
     group: "{{ palava_group }}"
 
-- name: Ensure signaltower ownership
+- name: Ensure Signaltower ownership
   file:
     path: "{{ palava_signaltower_install_dir }}"
     owner: "{{ palava_user }}"
@@ -65,6 +59,7 @@
 
 - name: Start Signaltower
   systemd:
+    state: started
     daemon_reload: "{{ palava_signaltower_autostart }}"
     enabled: "{{ palava_signaltower_autostart }}"
     name: "signaltower-{{ palava_environment }}.service"
