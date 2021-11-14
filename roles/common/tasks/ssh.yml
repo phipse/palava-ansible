@@ -1,0 +1,6 @@
+- name: Disable root login without key
+  lineinfile:
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^#?PermitRootLogin "
+    line: "PermitRootLogin without-password"
+  notify: "Restart sshd"
