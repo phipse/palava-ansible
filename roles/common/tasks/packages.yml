@@ -1,0 +1,19 @@
+- name: Install common packages
+  apt:
+    name:
+      - apt-transport-https
+      - apache2-utils
+      - fail2ban
+      - git
+      - nginx
+      - unattended-upgrades
+      - vim
+    state: present
+
+- name: Make sure some packages are not installed
+  apt:
+    name:
+      - apache2
+      - cups
+      - telnet
+    state: absent
