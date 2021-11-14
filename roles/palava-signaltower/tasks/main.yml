@@ -28,6 +28,7 @@
   git: 
     repo: 'https://github.com/palavatv/signaltower.git' 
     dest: /srv/signaltower
+    version: "{{ palava_signaltower_version }}"
 
 - name: Prepare Release
   shell: mix local.hex --force
