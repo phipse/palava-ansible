@@ -2,7 +2,7 @@
 
 - name: Install Elixir and Git
   package:
-    name: [ 'git', 'elixir' ]
+    name: [ 'git', 'elixir', 'erlang-dev' ]
     state: present
 
 - name: Create Signaltower directory
