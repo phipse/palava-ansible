@@ -10,3 +10,4 @@ palava_signaltower_port: 4234 # overwrite signaltower role default
 palava_web_version: chat # v1.1.0
 palava_web_install_dir: /srv/palava-web-staging
 palava_web_log_dir: /srv/palava-web-staging
+palava_web_machine: machine.staging
